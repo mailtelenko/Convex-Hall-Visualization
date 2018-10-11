@@ -99,6 +99,8 @@ async function convexHull(point) {
             }
         }
     }
+    if(borders.checked)
+        drawBorder();
 }
 
 function furthestLeft() {

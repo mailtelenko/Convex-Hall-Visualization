@@ -10,17 +10,25 @@
 </head>
 
 <body>
-    <h1>Convex Hull Algorithm</h1>
-    <hr />
+    <h1>Convex Hull Algorithm Visualization</h1>
 
     <canvas id="myCanvas" width="500px" height="500px" style="border:1px solid #000000;"></canvas>
-    <br/>
-    <button onclick="runSimulation()" id="start">Start</button>
-    Nodes: <input value="7" type="number" id="nodes">
-    Show computations: <input type="checkbox" id="showCompute">
-    Show connections: <input type="checkbox" id="showConnect">
-    Dot size: <input value="5" type="number" id="dotSize">
-    Sim speed: <input value="100" type="number" id="simSpeed">
+
+    <div class="settings">
+        <h2>Paramaters</h2>
+        <hr/>
+        Nodes: <input value="7" type="number" id="nodes">
+        <br/>
+        Show computations: <input type="checkbox" id="showCompute">
+        <br/>
+        Show connections: <input type="checkbox" id="showConnect">
+        <br/>
+        Node size: <input value="5" type="number" id="dotSize">
+        <br/>
+        Simulation speed: <input value="100" type="number" id="simSpeed">
+        <hr />
+        <button onclick="runSimulation()" id="start">Start</button>
+    </div>
 </body>
 
 <script src="main.js"></script>

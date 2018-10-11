@@ -1,0 +1,65 @@
+/* General */
+* {
+    font-family: 'K2D', sans-serif;
+    margin:0px;
+}
+
+body{
+    background: #1e5799;
+    background: -moz-linear-gradient(-45deg, #1e5799 0%, #3b9ddd 99%);
+    background: -webkit-linear-gradient(-45deg, #1e5799 0%,#3b9ddd 99%);
+    background: linear-gradient(135deg, #1e5799 0%,#3b9ddd 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#3b9ddd',GradientType=1 );
+    min-height:100vh;
+}
+
+h1{
+    background-color:white;
+
+    width:100vw;
+    height:5vh;
+
+    margin:0px;
+
+    padding:20px;
+    box-shadow:0px 0px 10px rgba(0,0,0,.4);
+}
+
+canvas{
+    float:left;
+    margin:20px;
+    background-color:rgb(226, 226, 226);
+}
+
+.settings{
+    float:left;
+    margin:20px;
+    background-color:white;    
+    padding:20px;   
+    border-radius:3px;
+}
+
+.settings *{
+    margin-bottom:20px;
+}
+
+.settings button{
+    width:100%;
+    padding:10px;
+    background-color:green;
+    border:none;
+    box-shadow:0px 0px 10px rgba(0,0,0,.2);
+    border-radius:100px;
+    color:white;
+    transition-duration:.2s;
+}
+
+.settings button:hover{
+    transform:scale(1.04,1.04);
+    box-shadow:0px 0px 15px rgba(0,0,0,.2);
+    transition-duration:.2s;
+}
+
+button:focus{
+    outline:0;
+}
