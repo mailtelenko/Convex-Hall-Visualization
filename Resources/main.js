@@ -25,6 +25,12 @@ const compute = document.querySelector("#showCompute");
 const borders = document.querySelector("#showConnect");
 const speed = document.getElementById("simSpeed");
 const dotSize = document.getElementById("dotSize");
+const line_width = document.getElementById("lineWidth");
+
+// Initialize canvas width/height
+gridSize = [(document.documentElement.clientWidth / 100) * 68, (document.documentElement.clientHeight / 100) * 84]
+ctx.canvas.width = gridSize[0];
+ctx.canvas.height = gridSize[1];
 
 //
 // Point Class
@@ -66,10 +72,13 @@ class Point {
 
     connect(_point, colour) {
         // If a colour has been passed to the method use it
-        if (typeof colour != undefined)
-            ctx.fillStyle = colour;
+        if (typeof colour != 'undefined')
+            ctx.strokeStyle = colour;
         else
-            ctx.fillStyle = "black";
+            ctx.strokeStyle = "black";
+
+        // Change line width
+        ctx.lineWidth = line_width.value;
 
         // Draw connecing line between points
         ctx.beginPath();
@@ -79,7 +88,7 @@ class Point {
         ctx.fill();
     }
 
-    static connect_perimeter() {
+    static async connect_perimeter() {
         // Pull all perimeter points
         var perimeter_points = Point.all_perimeter(points);
 
@@ -98,25 +107,48 @@ class Point {
         if (perimeter_points.length < 3)
             return console.error("Not enough points to connect perimeter!");
 
-        // Iterate over each perimeter point and connect it to it's adjacent points
-        perimeter_points.forEach(async function (point) {
-            // Pull all perimeter points
-            var _points = Point.all_perimeter(points);
-            // Sort points by x value (leftmost first)
-            _points = point.smallest_distances(_points);
+        // Run async if not showing computations
+        if (showCompute.checked) {
+            // Iterate over each perimeter point and connect it to it's adjacent points
+            perimeter_points.forEach(async function (point) {
+                // Pull all perimeter points
+                var _points = Point.all_perimeter(points);
+                // Sort points by x value (leftmost first)
+                _points = point.smallest_distances(_points);
 
-            // Push closest point to smallest distances array
-            var closest_point = await point.closest_point(_points);
+                // Push closest point to smallest distances array
+                var closest_point = await point.closest_point(_points);
 
-            // Push line to array
-            lines.push([
-                [point.pos.x, point.pos.y],
-                [closest_point.pos.x, closest_point.pos.y]
-            ]);
+                // Push line to array
+                lines.push([
+                    [point.pos.x, point.pos.y],
+                    [closest_point.pos.x, closest_point.pos.y]
+                ]);
 
-            // Draw connection
-            point.connect(closest_point);
-        });
+                // Draw connection
+                point.connect(closest_point);
+            });
+        } else {
+            // Run sync for visualization
+            for (var x = 0; x < perimeter_points.length; x++) {
+                // Pull all perimeter points
+                var _points = Point.all_perimeter(points);
+                // Sort points by x value (leftmost first)
+                _points = perimeter_points[x].smallest_distances(_points);
+
+                // Push closest point to smallest distances array
+                var closest_point = await perimeter_points[x].closest_point(_points);
+
+                // Push line to array
+                lines.push([
+                    [perimeter_points[x].pos.x, perimeter_points[x].pos.y],
+                    [closest_point.pos.x, closest_point.pos.y]
+                ]);
+
+                // Draw connection
+                perimeter_points[x].connect(closest_point);
+            }
+        }
     }
 
     // Returns cross product of 2 points
@@ -319,6 +351,9 @@ async function runSimulation() {
     //Clear canvas
     ctx.clearRect(0, 0, gridSize[0], gridSize[1]);
 
+    // Reset lines
+    lines = new Array();
+
     //Update node amount
     pointAmount = nodes.value;
 
@@ -327,6 +362,9 @@ async function runSimulation() {
     generatePoints();
 
     await solve();
+
+    if (borders.checked)
+        await Point.connect_perimeter(points);
 
     refresh();
 }

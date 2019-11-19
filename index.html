@@ -16,23 +16,27 @@
 
     <div class="settings">
         <h2>Parameters</h2>
-        <hr/>
+
         Nodes: <input value="7" type="number" id="nodes">
-        <br/>
+        <br />
+        Node size: <input value="7" type="number" id="dotSize">
+        <br />
+        Line width: <input value="3" type="number" id="lineWidth">
+        <br />
         Show computations: <input type="checkbox" id="showCompute">
+        <br />
+        Connect perimeter: <input type="checkbox" id="showConnect">
+        <br />
+        Simulation speed (s): <input value="0.5" type="number" id="simSpeed">
         <br/>
-        Show connections: <input type="checkbox" id="showConnect">
-        <br/>
-        Node size: <input value="5" type="number" id="dotSize">
-        <br/>
-        Simulation speed: <input value="100" type="number" id="simSpeed">
-        <hr />
         <button onclick="runSimulation()" id="start">Start</button>
-        <p style="margin-bottom:0px!important; text-align:center;">Created by Liam Telenko - 2018</p>
+        <br/>
+        <p style="text-align:center; width:100%; margin-top: 5px;"><a href="https://github.com/mailtelenko/Convex-Hull-Visualization/blob/master/README.md" target="_blank">Help/About</a></p>
+        <p style="margin-bottom:0px!important; margin-top: 20px;width:100%; text-align:center;"><a href="https://liamtelenko.tk" target="_blank">Liam Telenko</a> - 2019</p>
     </div>
 </body>
 
-<link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"> 
 <script src="Resources/main.js"></script>
 
 </html>
